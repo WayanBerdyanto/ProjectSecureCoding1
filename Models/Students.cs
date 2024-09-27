@@ -9,7 +9,8 @@ namespace ProjectSecureCoding1.Models
     public class Students
     {
         [Key]
-        public string Nim { get; set; } = null!;
+        public int Nim { get; set; }
         public string FullName { get; set; } = null!;
+        public string Address { get; set; } = null!;
     }
 }

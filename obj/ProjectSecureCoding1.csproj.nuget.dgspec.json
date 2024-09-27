@@ -1,27 +1,25 @@
 {
   "format": 1,
   "restore": {
-    "E:\\..SEMESTER 7\\KTI\\ProjectSecureCoding1\\ProjectSecureCoding1.csproj": {}
+    "C:\\Users\\USER\\OneDrive\\Desktop\\ProjectSecureCoding1\\ProjectSecureCoding1.csproj": {}
   },
   "projects": {
-    "E:\\..SEMESTER 7\\KTI\\ProjectSecureCoding1\\ProjectSecureCoding1.csproj": {
+    "C:\\Users\\USER\\OneDrive\\Desktop\\ProjectSecureCoding1\\ProjectSecureCoding1.csproj": {
       "version": "1.0.0",
       "restore": {
-        "projectUniqueName": "E:\\..SEMESTER 7\\KTI\\ProjectSecureCoding1\\ProjectSecureCoding1.csproj",
+        "projectUniqueName": "C:\\Users\\USER\\OneDrive\\Desktop\\ProjectSecureCoding1\\ProjectSecureCoding1.csproj",
         "projectName": "ProjectSecureCoding1",
-        "projectPath": "E:\\..SEMESTER 7\\KTI\\ProjectSecureCoding1\\ProjectSecureCoding1.csproj",
-        "packagesPath": "C:\\Users\\wayan\\.nuget\\packages\\",
-        "outputPath": "E:\\..SEMESTER 7\\KTI\\ProjectSecureCoding1\\obj\\",
+        "projectPath": "C:\\Users\\USER\\OneDrive\\Desktop\\ProjectSecureCoding1\\ProjectSecureCoding1.csproj",
+        "packagesPath": "C:\\Users\\USER\\.nuget\\packages\\",
+        "outputPath": "C:\\Users\\USER\\OneDrive\\Desktop\\ProjectSecureCoding1\\obj\\",
         "projectStyle": "PackageReference",
         "configFilePaths": [
-          "C:\\Users\\wayan\\AppData\\Roaming\\NuGet\\NuGet.Config",
-          "C:\\Program Files (x86)\\NuGet\\Config\\Microsoft.VisualStudio.Offline.config"
+          "C:\\Users\\USER\\AppData\\Roaming\\NuGet\\NuGet.Config"
         ],
         "originalTargetFrameworks": [
           "net8.0"
         ],
         "sources": {
-          "C:\\Program Files (x86)\\Microsoft SDKs\\NuGetPackages\\": {},
           "https://api.nuget.org/v3/index.json": {}
         },
         "frameworks": {
@@ -45,7 +43,13 @@
         "net8.0": {
           "targetAlias": "net8.0",
           "dependencies": {
+            "Microsoft.Data.Sqlite": {
+              "target": "Package",
+              "version": "[8.0.8, )"
+            },
             "Microsoft.EntityFrameworkCore.Design": {
+              "include": "Runtime, Build, Native, ContentFiles, Analyzers, BuildTransitive",
+              "suppressParent": "All",
               "target": "Package",
               "version": "[8.0.8, )"
             },
@@ -57,17 +61,9 @@
               "target": "Package",
               "version": "[8.0.8, )"
             },
-            "Microsoft.EntityFrameworkCore.Tools.DotNet": {
-              "target": "Package",
-              "version": "[2.0.3, )"
-            },
             "MySql.Data.EntityFrameworkCore": {
               "target": "Package",
               "version": "[8.0.22, )"
-            },
-            "dotnet-ef": {
-              "target": "Package",
-              "version": "[8.0.8, )"
             }
           },
           "imports": [

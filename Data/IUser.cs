@@ -8,7 +8,12 @@ namespace ProjectSecureCoding1.Data
 {
     public interface IUser
     {
-        Users Registration (Users users);
-        Users Login (Users users);
+        Users Registration(Users users);
+        Users Login(Users users);
+
+        Users GetUserByUsername(string username);
+
+        Users UpdateUser(Users user);
+
     }
 }

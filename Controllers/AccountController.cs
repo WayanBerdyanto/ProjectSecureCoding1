@@ -9,6 +9,8 @@ using Microsoft.AspNetCore.Mvc;
 using ProjectSecureCoding1.Data;
 using ProjectSecureCoding1.Models;
 using ProjectSecureCoding1.ViewModels;
+using BC = BCrypt.Net.BCrypt;
+
 
 namespace ProjectSecureCoding1.Controllers
 {
@@ -19,6 +21,18 @@ namespace ProjectSecureCoding1.Controllers
         public AccountController(IUser user)
         {
             _userData = user;
+        }
+
+        private Users GetCurrentUser()
+        {
+            var username = User.Identity.Name; // Use Name to get the logged-in user's username
+            if (string.IsNullOrEmpty(username))
+            {
+                return null; // Return null if the user is not authenticated
+            }
+
+            // Retrieve the user from the database
+            return _userData.GetUserByUsername(username);
         }
 
         public ActionResult Index()
@@ -113,6 +127,56 @@ namespace ProjectSecureCoding1.Controllers
         [HttpGet]
         public IActionResult AccessDenied()
         {
+            return View();
+        }
+
+        [HttpGet("password")]
+        public IActionResult ChangePassword()
+        {
+            return View("ChangePassword");
+        }
+
+        [HttpPost("password")]
+        public async Task<IActionResult> ChangePassword(ChangePasswordViewModel model)
+        {
+            // Assume you have a method to get the current user
+            var currentUser = GetCurrentUser();
+
+            if (currentUser == null)
+            {
+                ViewBag.Error = "User not found. Please log in.";
+                return RedirectToAction("Login");
+            }
+
+            if (!BC.Verify(model.CurrentPassword, currentUser.Password))
+            {
+                ViewBag.Error = "Current password is incorrect.";
+                return View(model); 
+            }
+
+            if(model.NewPassword.Length < 12){
+                ViewBag.Error = "Password must be at least 12 characters";
+                return View(model); 
+            }
+
+            // Update the user
+            var updatedUser = new Users
+            {
+                Username = currentUser.Username,
+                Password = model.NewPassword,
+                Role = currentUser.Role
+            };
+
+            try
+            {
+                _userData.UpdateUser(updatedUser);
+                ViewBag.SuccessMessage = "Password updated successfully.";
+            }
+            catch (Exception ex)
+            {
+                ViewBag.Error = ex.Message;
+            }
+
             return View();
         }
 

@@ -25,8 +25,9 @@ namespace ProjectSecureCoding1.Controllers
         {
             ViewBag.username = User.Identity.Name;
             var students = _context.Students.ToList();
-            var count = students.Count();
-            return View("Dashboard", count);
+            var users = _context.Users.Count();
+            var countStudents = students.Count();
+            return View("Dashboard", new { countStudents = countStudents, users = users });
         }
 
         public IActionResult Privacy()

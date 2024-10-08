@@ -15,12 +15,14 @@ namespace ProjectSecureCoding1.Controllers
             _context = context;
         }
 
+        [HttpGet("/students")]
         public IActionResult Index()
         {
             var students = _context.Students.ToList();
             return View("Students", students);
         }
 
+        [HttpGet("/students/create")]
         public IActionResult Create()
         {
             return View("Create");
@@ -39,6 +41,7 @@ namespace ProjectSecureCoding1.Controllers
             return View(student);
         }
 
+        [HttpGet("/students/edit/{id}")]
         public IActionResult Edit(int id)
         {
             var student = _context.Students.Find(id);
@@ -67,6 +70,7 @@ namespace ProjectSecureCoding1.Controllers
             return View(student);
         }
 
+        [HttpGet("/students/delete/{id}")]
         public IActionResult Delete(int id)
         {
             var student = _context.Students.Find(id);
@@ -90,6 +94,7 @@ namespace ProjectSecureCoding1.Controllers
             return RedirectToAction(nameof(Index));
         }
 
+        [HttpGet("/students/detail/{id}")]
         public IActionResult Details(int id)
         {
             var student = _context.Students.Find(id);

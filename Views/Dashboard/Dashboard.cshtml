@@ -3,11 +3,16 @@
 }
 
 <div class="row">
+    <div class="alert alert-primary" role="alert">
+        <strong>Welcome, @ViewBag.username! 😃</strong>
+    </div>
     <div class="col-sm-6 mb-3 mb-sm-0">
         <div class="card">
             <div class="card-body">
                 <h5 class="card-title">Mahasiswa</h5>
-                <p class="card-text">20</p>
+                <p class="card-text">
+                    @Model
+                </p>
             </div>
         </div>
     </div>
@@ -15,7 +20,7 @@
         <div class="card">
             <div class="card-body">
                 <h5 class="card-title">Dosen</h5>
-                <p class="card-text">10</p>
+                <p class="card-text">0</p>
             </div>
         </div>
     </div>

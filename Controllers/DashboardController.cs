@@ -3,23 +3,30 @@ using System.Collections.Generic;
 using System.Diagnostics;
 using System.Linq;
 using System.Threading.Tasks;
+using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
+using ProjectSecureCoding1.Data;
 using ProjectSecureCoding1.Models;
 
 namespace ProjectSecureCoding1.Controllers
 {
+    [Authorize]
     public class DashboardController : Controller
     {
-        private readonly ILogger<DashboardController> _logger;
+        private readonly ApplicationDbContext _context;
 
-        public DashboardController(ILogger<DashboardController> logger)
+        public DashboardController(ApplicationDbContext context)
         {
-            _logger = logger;
+            _context = context;
         }
 
+        [HttpGet("/dashboard")]
         public IActionResult Index()
         {
-            return View("dashboard");
+            ViewBag.username = User.Identity.Name;
+            var students = _context.Students.ToList();
+            var count = students.Count();
+            return View("Dashboard", count);
         }
 
         public IActionResult Privacy()

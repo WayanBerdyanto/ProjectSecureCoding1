@@ -18,5 +18,6 @@ namespace ProjectSecureCoding1.Data
         }
 
         public DbSet<Students> Students { get; set; } = null!;
+        public DbSet<Users> Users { get; set; } = null!;
     }
 }

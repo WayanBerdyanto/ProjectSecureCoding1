@@ -100,7 +100,7 @@ namespace ProjectSecureCoding1.Controllers
         }
 
         [HttpPost("register")]
-        public ActionResult Register(RegistrationViewModel registrationViewModel)
+        public async Task<ActionResult> RegisterAsync(RegistrationViewModel registrationViewModel)
         {
             try
             {
@@ -112,7 +112,22 @@ namespace ProjectSecureCoding1.Controllers
                         Password = registrationViewModel.Password, // Pastikan ini password yang sudah di-hash
                         Role = "contributor"
                     };
-                    _userData.Registration(user);
+                    var registerUser = _userData.Registration(user);
+
+                    var claims = new List<Claim>
+                    {
+                        new Claim(ClaimTypes.Name, registerUser.Username), // Pastikan menggunakan loginUser
+                        new Claim(ClaimTypes.Role, registerUser.Role) // Pastikan role ditambahkan
+                    };
+
+                    var identity = new ClaimsIdentity(claims, CookieAuthenticationDefaults.AuthenticationScheme);
+                    var principal = new ClaimsPrincipal(identity);
+
+                    await HttpContext.SignInAsync(
+                        CookieAuthenticationDefaults.AuthenticationScheme,
+                        principal
+                        );
+
                     return RedirectToAction("Index", "Dashboard");
                 }
             }
@@ -151,12 +166,13 @@ namespace ProjectSecureCoding1.Controllers
             if (!BC.Verify(model.CurrentPassword, currentUser.Password))
             {
                 ViewBag.Error = "Current password is incorrect.";
-                return View(model); 
+                return View(model);
             }
 
-            if(model.NewPassword.Length < 12){
+            if (model.NewPassword.Length < 12)
+            {
                 ViewBag.Error = "Password must be at least 12 characters";
-                return View(model); 
+                return View(model);
             }
 
             // Update the user
